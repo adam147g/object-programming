@@ -17,7 +17,7 @@ public class World {
                 case "b" -> Direction.BACKWARD;
                 case "r" -> Direction.RIGHT;
                 case "l" -> Direction.LEFT;
-                default -> null;
+                default -> Direction.UNKNOWN;
             };
         }
         return directions;
@@ -38,6 +38,7 @@ public class World {
                 case BACKWARD -> "Zwierzak idzie do tyłu";
                 case RIGHT -> "Zwierzak idzie w prawo";
                 case LEFT -> "Zwierzak idzie w lewo";
+                default -> "Nieznane";
             };
             if (!message.equals("Nieznane")) {
                 System.out.println(message);
