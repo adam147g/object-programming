@@ -1,14 +1,39 @@
 package agh.ics.oop;
 
-//start
-//afaf
-
 public class World {
     public static void main(String[] args) {
         System.out.println("system wystartowal");
         Direction[] enum_args = toEnum(args);
         run(enum_args);
         System.out.println("system zakonczyl dzialanie");
+
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
+
+        System.out.println(MapDirection.NORTH);
+        System.out.println(MapDirection.SOUTH);
+        System.out.println(MapDirection.WEST);
+        System.out.println(MapDirection.EAST);
+
+        System.out.println(MapDirection.NORTH + ", next: " + MapDirection.NORTH.next());
+        System.out.println(MapDirection.SOUTH + ", next: " + MapDirection.SOUTH.next());
+        System.out.println(MapDirection.WEST + ", next: " + MapDirection.WEST.next());
+        System.out.println(MapDirection.EAST + ", next: " + MapDirection.EAST.next());
+
+        System.out.println(MapDirection.NORTH + ", previous: " + MapDirection.NORTH.previous());
+        System.out.println(MapDirection.SOUTH + ", previous: " + MapDirection.SOUTH.previous());
+        System.out.println(MapDirection.WEST + ", previous: " + MapDirection.WEST.previous());
+        System.out.println(MapDirection.EAST + ", previous: " + MapDirection.EAST.previous());
+
+        System.out.println(MapDirection.NORTH + ", toUnitVector: " + MapDirection.NORTH.toUnitVector());
+        System.out.println(MapDirection.SOUTH + ", toUnitVector: " + MapDirection.SOUTH.toUnitVector());
+        System.out.println(MapDirection.WEST + ", toUnitVector: " + MapDirection.WEST.toUnitVector());
+        System.out.println(MapDirection.EAST + ", toUnitVector: " + MapDirection.EAST.toUnitVector());
+
+
     }
 
     public static Direction[] toEnum(String[] args) {
