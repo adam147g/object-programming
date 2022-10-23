@@ -1,5 +1,5 @@
 package agh.ics.oop;
-
+//zmiany
 public class Animal {
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2, 2);
