@@ -15,6 +15,9 @@ public class SimulationEngine implements IEngine{
                 animals.add(animal);
         }
     }
+    public Animal getAnimal(int idx) {
+        return animals.get(idx);
+    }
     @Override
     public void run() {
         int i = 0;
