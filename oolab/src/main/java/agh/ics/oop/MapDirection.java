@@ -13,6 +13,7 @@ public enum MapDirection {
             case WEST -> "<";
             case EAST -> ">";
         };
+
     }
 
     public MapDirection next(){

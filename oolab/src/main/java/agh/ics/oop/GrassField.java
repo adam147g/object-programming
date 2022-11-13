@@ -49,31 +49,25 @@ public class GrassField extends AbstractWorldMap{
     }
 
     public boolean canMoveTo(Vector2d position) {
-        if (position.follows(bottomLeftMap) &&
-                position.precedes(topRightMap) &&
-                !(objectAt(position) instanceof Animal)) {
+        if (!(objectAt(position) instanceof Animal)) {
             Object checkedPos = objectAt(position);
             if (checkedPos instanceof Grass) {
                 grasses.remove(checkedPos);
-                spawnGrassRandomly();
+                boolean flag = true;
+                while (flag) {
+                    int randomX = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
+                    int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
+                    Vector2d randomPos = new Vector2d(randomX, randomY);
+                    if (objectAt(randomPos) == null) {
+                        grasses.add(new Grass(randomPos));
+                        flag = false;
+                    }
+                }
             }
             return true;
         }
         return false;
     }
-
-    public boolean spawnGrassRandomly() {
-        int randomX = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
-        int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
-        Vector2d randomPos = new Vector2d(randomX, randomY);
-        if (objectAt(randomPos) == null) {
-            grasses.add(new Grass(randomPos));
-            return true;
-        }
-        return false;
-    }
-
-
 
     public Vector2d getLowerLeft() {
         Vector2d currLowerLeft = topRightMap;
