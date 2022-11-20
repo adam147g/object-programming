@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
-    private final List<Grass> grasses;
+    private final Map<Vector2d, Grass> grasses = new HashMap<>();;
     private final int n;
     private final int maxSpawnRange;
     private final int minSpawnRange;
@@ -12,7 +12,6 @@ public class GrassField extends AbstractWorldMap{
         this.n = n;
         this.maxSpawnRange = (int) Math.sqrt(n * 10);
         this.minSpawnRange = 0;
-        grasses = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             boolean flag = true;
             while (flag) {
@@ -20,7 +19,9 @@ public class GrassField extends AbstractWorldMap{
                 int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
                 Vector2d randomPos = new Vector2d(randomX, randomY);
                 if (objectAt(randomPos) == null) {
-                    grasses.add(new Grass(randomPos));
+                    Grass grass = new Grass(randomPos);
+                    grasses.put(randomPos, grass);
+                    mapBorder.addElement(grass.getPosition());
                     flag = false;
                 }
             }
@@ -30,20 +31,15 @@ public class GrassField extends AbstractWorldMap{
     public boolean isOccupied(Vector2d position) {
         if (super.isOccupied(position))
             return true;
-        for (Grass grass : grasses) {
-            if (position.equals(grass.getPosition()))
-                return true;
-        }
-        return false;
+        return objectAt(position) instanceof Grass;
     }
 
     public Object objectAt(Vector2d position) {
         if (super.objectAt(position) != null) {
             return super.objectAt(position);
         }
-        for (Grass grass : grasses) {
-            if (grass.isAt(position))
-                return grass;
+        if (grasses.containsKey(position)) {
+            return grasses.get(position);
         }
         return null;
     }
@@ -52,14 +48,18 @@ public class GrassField extends AbstractWorldMap{
         if (!(objectAt(position) instanceof Animal)) {
             Object checkedPos = objectAt(position);
             if (checkedPos instanceof Grass) {
-                grasses.remove(checkedPos);
+                Grass removeGrass = (Grass) checkedPos;
+                grasses.remove(removeGrass.getPosition(),removeGrass);
+                mapBorder.removeElement(removeGrass.getPosition());
                 boolean flag = true;
                 while (flag) {
                     int randomX = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
                     int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
                     Vector2d randomPos = new Vector2d(randomX, randomY);
                     if (objectAt(randomPos) == null) {
-                        grasses.add(new Grass(randomPos));
+                        Grass grass = new Grass(randomPos);
+                        grasses.put(randomPos, grass);
+                        mapBorder.addElement(grass.getPosition());
                         flag = false;
                     }
                 }
@@ -70,24 +70,10 @@ public class GrassField extends AbstractWorldMap{
     }
 
     public Vector2d getLowerLeft() {
-        Vector2d currLowerLeft = topRightMap;
-        for (Vector2d keyPosition : animals.keySet()) {
-            currLowerLeft = currLowerLeft.lowerLeft(keyPosition);
-        }
-        for (Grass grass : grasses) {
-            currLowerLeft = currLowerLeft.lowerLeft(grass.getPosition());
-        }
-        return currLowerLeft;
+        return mapBorder.getLowerLeft();
     }
 
     public Vector2d getUpperRight() {
-        Vector2d currUpperRight = bottomLeftMap;
-        for (Vector2d keyPosition : animals.keySet()) {
-            currUpperRight = currUpperRight.upperRight(keyPosition);
-        }
-        for (Grass grass : grasses) {
-            currUpperRight = currUpperRight.upperRight(grass.getPosition());
-        }
-        return currUpperRight;
+        return mapBorder.getUpperRight();
     }
 }

@@ -7,7 +7,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d topRightMap;
     protected Vector2d bottomLeftMap;
-
+    protected MapBoundary mapBorder = new MapBoundary();
     public AbstractWorldMap(int topRightX, int topRightY, int bottomLeftX, int bottomLeftY) {
         this.topRightMap = new Vector2d(topRightX, topRightY);
         this.bottomLeftMap = new Vector2d(bottomLeftX, bottomLeftY);
@@ -33,9 +33,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
             animal.addObserver(this);
+            animal.addObserver(mapBorder);
+            mapBorder.addElement(animal.getPosition());
             return true;
         }
-        return false;
+        throw new IllegalArgumentException(animal.getPosition() + " position is occuppied by other animal");
     }
 
     public boolean isOccupied(Vector2d position) {

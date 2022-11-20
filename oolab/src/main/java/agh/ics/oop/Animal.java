@@ -5,8 +5,6 @@ public class Animal extends AbstractWorldMapElement {
     private MapDirection direction = MapDirection.NORTH;
     private IWorldMap map;
 
-    private List<IPositionChangeObserver> observers;
-
     public Animal(IWorldMap map, Vector2d initialPosition) {
         super(initialPosition);
         this.map = map;
@@ -43,12 +41,6 @@ public class Animal extends AbstractWorldMapElement {
                     positionChanged(newPosition);
             }
         }
-    }
-    void addObserver(IPositionChangeObserver observer) {
-        this.observers.add(observer);
-    }
-    void removeObserver(IPositionChangeObserver observer) {
-        this.observers.remove(observer);
     }
     void positionChanged(Vector2d newPos) {
         for (IPositionChangeObserver observer : observers)

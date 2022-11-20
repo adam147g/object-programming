@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,8 +18,8 @@ public class GrassFieldTest {
         assertTrue(map.canMoveTo(new Vector2d(8, 1)));
         assertTrue(map.canMoveTo(new Vector2d(9, 9)));
         assertTrue(map.canMoveTo(new Vector2d(Integer.MIN_VALUE + 1, Integer.MAX_VALUE - 1)));
-        assertFalse(map.canMoveTo(new Vector2d(Integer.MIN_VALUE, Integer.MAX_VALUE - 1)));
-        assertFalse(map.canMoveTo(new Vector2d(Integer.MIN_VALUE + 1, Integer.MAX_VALUE)));
+        map.place(new Animal(map, new Vector2d(4, 66)));
+        Assertions.assertFalse(map.canMoveTo(new Vector2d(4, 66)));
     }
 
     @Test
@@ -26,9 +27,22 @@ public class GrassFieldTest {
         GrassField map = new GrassField(10);
         assertTrue(map.place(new Animal(map, new Vector2d(-44, 80))));
         assertTrue(map.place(new Animal(map, new Vector2d(52, 95))));
-        assertFalse(map.place(new Animal(map, new Vector2d(52, 95))));
         assertTrue(map.place(new Animal(map, new Vector2d(Integer.MAX_VALUE-1, Integer.MAX_VALUE-1))));
-        assertFalse(map.place(new Animal(map, new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE))));
+        try {
+            map.place(new Animal(map, new Vector2d(52, 95)));
+            Assertions.fail("Can't place at 52, 95");
+        }
+        catch(IllegalArgumentException exception){
+            Assertions.assertTrue(true);
+        }
+        assertTrue(map.place(new Animal(map, new Vector2d(-414, 80))));
+        try {
+            map.place(new Animal(map, new Vector2d(-414, 80)));
+            Assertions.fail("Can't place at -414, 80");
+        }
+        catch(IllegalArgumentException exception){
+            Assertions.assertTrue(true);
+        }
     }
 
     @Test

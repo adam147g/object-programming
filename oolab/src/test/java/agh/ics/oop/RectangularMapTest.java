@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,8 +19,20 @@ public class RectangularMapTest {
     public void placeTest() {
         IWorldMap map = new RectangularMap(3, 3);
         assertTrue(map.place(new Animal(map, new Vector2d(1, 1))));
-        assertFalse(map.place(new Animal(map, new Vector2d(1, 1))));
-        assertFalse(map.place(new Animal(map, new Vector2d(4, 1))));
+        try{
+            map.place(new Animal(map, new Vector2d(1, 1)));
+            Assertions.fail("Can't place at 1, 1");
+        }
+        catch (IllegalArgumentException exception){
+            Assertions.assertTrue(true);
+        }
+        try{
+            map.place(new Animal(map, new Vector2d(4, 1)));
+            Assertions.fail("Can't place at 4, 1");
+        }
+        catch (IllegalArgumentException exception){
+            Assertions.assertTrue(true);
+        }
     }
 
     @Test
