@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.*;
 
-abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected MapVisualizer visualizer = new MapVisualizer(this);
     protected Vector2d topRightMap;
@@ -18,9 +18,9 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
         this.animals.put(newPosition, animal);
     }
 
-    abstract Vector2d getLowerLeft();
+    public abstract Vector2d getLowerLeft();
 
-    abstract Vector2d getUpperRight();
+    public abstract Vector2d getUpperRight();
 
     public String toString() {
         return visualizer.draw(getLowerLeft(), getUpperRight());
