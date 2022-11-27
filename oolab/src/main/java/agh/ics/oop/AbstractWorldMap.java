@@ -12,6 +12,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         this.topRightMap = new Vector2d(topRightX, topRightY);
         this.bottomLeftMap = new Vector2d(bottomLeftX, bottomLeftY);
     }
+    @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         Animal animal = this.animals.get(oldPosition);
         this.animals.remove(oldPosition);
@@ -37,7 +38,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             mapBorder.addElement(animal.getPosition());
             return true;
         }
-        throw new IllegalArgumentException(animal.getPosition() + " position is occuppied by other animal");
+        throw new IllegalArgumentException(animal.getPosition() + " position is occupied by other animal");
     }
 
     public boolean isOccupied(Vector2d position) {

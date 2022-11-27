@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
-    private final Map<Vector2d, Grass> grasses = new HashMap<>();;
+    private final Map<Vector2d, Grass> grasses = new HashMap<>();
     private final int n;
     private final int maxSpawnRange;
     private final int minSpawnRange;
@@ -59,6 +59,7 @@ public class GrassField extends AbstractWorldMap{
                     if (objectAt(randomPos) == null) {
                         Grass grass = new Grass(randomPos);
                         grasses.put(randomPos, grass);
+                        grass.addObserver(this.mapBorder);
                         mapBorder.addElement(grass.getPosition());
                         flag = false;
                     }

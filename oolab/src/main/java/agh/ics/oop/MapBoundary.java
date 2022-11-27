@@ -26,7 +26,7 @@ public class MapBoundary implements IPositionChangeObserver{
     }
 
     public Vector2d getLowerLeft(){
-        return new Vector2d(sortedX.first().x,sortedY.first().y);
+        return new Vector2d(sortedX.first().x, sortedY.first().y);
     }
 
     public Vector2d getUpperRight(){

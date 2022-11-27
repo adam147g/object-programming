@@ -20,7 +20,7 @@ public class Animal extends AbstractWorldMapElement {
             case WEST -> "<";
         };
     }
-    MapDirection getDirection() {
+    public MapDirection getDirection() {
         return this.direction;
     }
     void move(MoveDirection direction) {
@@ -46,5 +46,15 @@ public class Animal extends AbstractWorldMapElement {
         for (IPositionChangeObserver observer : observers)
             observer.positionChanged(this.position, newPos);
         this.position = newPos;
+    }
+
+    @Override
+    public String getFileName() {
+        return switch (this.direction) {
+            case NORTH -> "src/main/resources/up.png";
+            case EAST -> "src/main/resources/right.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case WEST -> "src/main/resources/left.png";
+        };
     }
 }
