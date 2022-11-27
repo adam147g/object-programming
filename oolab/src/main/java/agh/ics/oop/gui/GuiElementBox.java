@@ -12,13 +12,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class GuiElementBox {
-    Image image = null;
+
     Label elementLabel;
     ImageView elementView;
 
     public GuiElementBox(IMapElement mapElement) throws FileNotFoundException {
         try {
-            this.image = new Image(new FileInputStream(mapElement.getFileName()));
+            Image image = new Image(new FileInputStream(mapElement.getFileName()));
             if (mapElement instanceof Animal) {
                 elementView =  new ImageView(image);
                 elementView.setFitWidth(20);
