@@ -39,8 +39,8 @@ public class App extends Application implements ISimulationEngineObserver{
         showWorldMap();
         TextField textField = new TextField();
         textField.setText("Animal moves");
-        textField.setPrefWidth(200);
-        textField.setMaxWidth(200);
+//        textField.setPrefWidth(200);
+//        textField.setMaxWidth(200);
 
         Button start = new Button("Start");
         start.setOnAction(e -> {
@@ -56,7 +56,7 @@ public class App extends Application implements ISimulationEngineObserver{
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(20);
 
-        Scene scene = new Scene(vbox, 600, 550);
+        Scene scene = new Scene(vbox);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -107,7 +107,6 @@ public class App extends Application implements ISimulationEngineObserver{
             System.out.println("Couldnt load files");
         }
     }
-
 
     @Override
     public void mapChanged() throws FileNotFoundException {

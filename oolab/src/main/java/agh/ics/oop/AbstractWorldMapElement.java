@@ -22,5 +22,4 @@ public abstract class AbstractWorldMapElement implements IMapElement {
     void removeObserver(IPositionChangeObserver observer) {
         this.observers.remove(observer);
     }
-
 }
